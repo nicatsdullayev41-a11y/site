@@ -1,1 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Психологический центр | Обучение психологии</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Merriweather:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;}
+        body{font-family:'Inter',sans-serif;background:#fefef7;color:#1e2a2f;}
+        .container{max-width:1280px;margin:0 auto;padding:0 32px;}
+        header{background:rgba(255,255,245,0.95);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100;border-bottom:1px solid #e2e8dd;}
+        .navbar{display:flex;justify-content:space-between;align-items:center;padding:16px 0;flex-wrap:wrap;}
+        .logo{font-size:1.7rem;font-weight:700;color:#2c5f4c;font-family:'Merriweather',serif;}
+        .logo span{color:#c17a4b;}
+        .nav-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap;}
+        .nav-links a{text-decoration:none;font-weight:500;color:#2d3e3c;cursor:pointer;}
+        .nav-links a:hover{color:#c17a4b;}
+        .btn-primary{background:#c17a4b;color:#fff;padding:12px 28px;border-radius:40px;border:none;cursor:pointer;font-weight:600;}
+        .btn-secondary{background:transparent;border:1.5px solid #c17a4b;color:#c17a4b;padding:8px 20px;border-radius:40px;cursor:pointer;}
+        .btn-outline{background:none;border:1.5px solid #2c5f4c;padding:6px 18px;border-radius:40px;cursor:pointer;}
+        .btn-primary:hover,.btn-secondary:hover,.btn-outline:hover{opacity:0.85;}
+        .hero{padding:60px 0;background:linear-gradient(135deg,#f9f6ee,#f0ebe0);}
+        .hero-grid{display:flex;gap:40px;align-items:center;flex-wrap:wrap;}
+        .hero-content{flex:1;}
+        .hero-content h1{font-size:2.8rem;color:#2c3e2b;margin-bottom:20px;}
+        .hero-image{flex:1;text-align:center;}
+        .section{padding:70px 0;}
+        .section-title{text-align:center;font-size:2.2rem;margin-bottom:48px;color:#1f3d39;}
+        .courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
+        .course-card{background:#fff;border-radius:24px;padding:28px;box-shadow:0 8px 20px rgba(0,0,0,0.05);text-align:center;transition:0.2s;}
+        .course-card:hover{transform:translateY(-5px);}
+        .course-icon{font-size:2.8rem;color:#c17a4b;margin-bottom:16px;}
+        .register-box,.login-box,.admin-panel,.dashboard-box{background:#fff;border-radius:32px;padding:40px;box-shadow:0 20px 35px rgba(0,0,0,0.08);max-width:700px;margin:0 auto;border:1px solid #ece6dc;}
+        .register-box input,.register-box select,.login-box input{width:100%;padding:14px 18px;border-radius:60px;border:1px solid #cfd8d2;margin-bottom:18px;font-size:1rem;}
+        .admin-table{width:100%;border-collapse:collapse;margin:20px 0;}
+        .admin-table th,.admin-table td{border:1px solid #ddd;padding:12px;text-align:left;}
+        .admin-table th{background:#f3f0e8;}
+        .video-item{background:#f8f6ef;margin-bottom:24px;padding:20px;border-radius:24px;}
+        .video-item iframe{width:100%;height:250px;border-radius:16px;margin-top:12px;}
+        footer{background:#1e2a2a;color:#bfcfca;text-align:center;padding:40px 0;margin-top:40px;}
+        .alert{padding:12px 20px;border-radius:60px;margin-top:16px;text-align:center;}
+        .alert-success{background:#d9f0e3;color:#236b4a;}
+        .alert-error{background:#fce4da;color:#b45a3a;}
+        hr{margin:20px 0;border-color:#ece6dc;}
+        @media(max-width:768px){.container{padding:0 16px;}.navbar{flex-direction:column;}.hero-content h1{font-size:1.8rem;text-align:center;}.section-title{font-size:1.8rem;}.courses-grid{grid-template-columns:1fr;}.register-box,.login-box{padding:24px 20px;}.video-item iframe{height:180px;}}
+    </style>
+</head>
+<body>
 
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">ПсихоЛогос <span>✦</span></div>
+            <div class="nav-links">
+                <a onclick="navigate('home')">Главная</a>
+                <a onclick="navigate('courses')">Курсы</a>
+                <a onclick="navigate('dashboard')">Кабинет</a>
+                <a onclick="navigate('admin')">Админ</a>
+                <a onclick="navigate('login')">Вход</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main id="app-root"></main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 Психологический образовательный центр — обучение психологии онлайн</p>
+        <p style="margin-top:12px;"><i class="fab fa-whatsapp" style="color:#25D366;"></i> Заявки принимаются через WhatsApp: +9940555797910</p>
+    </div>
+</footer>
+
+<script>
+    // ========== ВАШИ ДАННЫЕ ДЛЯ ВХОДА (СКРЫТЫ ОТ ПОСЕТИТЕЛЕЙ) ==========
+    // Логин: admin
+    // Пароль: bloxbone
+    // ====================================================================
+    const YOUR_PHONE = '9940555797910';
+    
+    // ОЧИЩАЕМ ВСЁ И СОЗДАЁМ ЗАНОВО
+    localStorage.clear();
+    sessionStorage.clear();
+    
+    let applications = [];
+    let users = [
+        { 
+            login: 'admin', 
+            password: 'bloxbone', 
+            name: 'Администратор', 
+            isAdmin: true 
+        },
+        { 
+            login: 'student', 
+            password: '123456', 
+            name: 'Тестовый Студент', 
+            isAdmin: false 
+        }
+    ];
+    
+    localStorage.setItem('psycho_users', JSON.stringify(users));
+    localStorage.setItem('psycho_apps', JSON.stringify(applications));
+    
+    let currentUser = null;
+    
+    function sendWhatsApp(name, email, phone, course, comment) {
+        let msg = `НОВАЯ ЗАЯВКА%0AИмя: ${name}%0AEmail: ${email}%0AТелефон: ${phone}%0AКурс: ${course}`;
+        if(comment) msg += `%0AКоммент: ${comment}`;
+        window.open(`https://wa.me/${YOUR_PHONE}?text=${msg}`, '_blank');
+    }
+    
+    function saveApp(name, email, phone, course, comment) {
+        if(!name || !email || !phone) return false;
+        let apps = JSON.parse(localStorage.getItem('psycho_apps') || '[]');
+        let newApp = { id: Date.now(), name, email, phone, course, comment: comment || '', status: 'new', createdAt: new Date().toISOString() };
+        apps.push(newApp);
+        localStorage.setItem('psycho_apps', JSON.stringify(apps));
+        sendWhatsApp(name, email, phone, course, comment);
+        return true;
+    }
+    
+    function updateStatus(id, status) {
+        let apps = JSON.parse(localStorage.getItem('psycho_apps') || '[]');
+        let app = apps.find(a => a.id == id);
+        if(app) { app.status = status; localStorage.setItem('psycho_apps', JSON.stringify(apps)); }
+    }
+    
+    function loginUser(login, pass) {
+        let users = JSON.parse(localStorage.getItem('psycho_users') || '[]');
+        let user = users.find(u => u.login === login && u.password === pass);
+        if(user) { 
+            sessionStorage.setItem('psycho_current', JSON.stringify(user)); 
+            currentUser = user; 
+            return true; 
+        }
+        return false;
+    }
+    
+    function logout() { 
+        sessionStorage.removeItem('psycho_current'); 
+        currentUser = null; 
+        navigate('home'); 
+    }
+    
+    window.navigate = function(page) {
+        if(page === 'home') renderHome();
+        else if(page === 'courses') renderCourses();
+        else if(page === 'dashboard') { 
+            let saved = sessionStorage.getItem('psycho_current');
+            if(saved) { currentUser = JSON.parse(saved); renderDashboard(); }
+            else renderLogin();
+        }
+        else if(page === 'admin') {
+            let saved = sessionStorage.getItem('psycho_current');
+            if(saved) { currentUser = JSON.parse(saved); renderAdmin(); }
+            else renderLogin();
+        }
+        else if(page === 'login') renderLogin();
+    };
+    
+    function renderHome() {
+        document.getElementById('app-root').innerHTML = `
+            <section class="hero"><div class="container hero-grid"><div class="hero-content"><h1>Обучение психологии <br><span style="color:#c17a4b">с практикой и поддержкой</span></h1><p>Диплом, супервизии, личный кабинет с уроками.</p><div style="display:flex;gap:15px;margin-top:20px;flex-wrap:wrap;"><button class="btn-primary" id="goCourses">Выбрать курс</button><button class="btn-outline" id="contactWhatsApp">Связаться</button></div></div><div class="hero-image"><i class="fas fa-brain" style="font-size:100px;color:#c17a4b80"></i></div></div></section>
+            <section id="coursesSec" class="section"><div class="container"><h2 class="section-title">Наши программы</h2><div class="courses-grid">
+            <div class="course-card"><div class="course-icon"><i class="fas fa-brain"></i></div><h3>Основы психологии</h3><p>6 месяцев</p><button class="btn-secondary apply-course" data-course="Основы психологии">Записаться</button></div>
+            <div class="course-card"><div class="course-icon"><i class="fas fa-hand-holding-heart"></i></div><h3>Практическое консультирование</h3><p>9 месяцев</p><button class="btn-secondary apply-course" data-course="Практическое консультирование">Записаться</button></div>
+            <div class="course-card"><div class="course-icon"><i class="fas fa-child"></i></div><h3>Детская психология</h3><p>8 месяцев</p><button class="btn-secondary apply-course" data-course="Детская психология">Записаться</button></div>
+            <div class="course-card"><div class="course-icon"><i class="fas fa-chart-line"></i></div><h3>Коучинг</h3><p>4 месяца</p><button class="btn-secondary apply-course" data-course="Коучинг и психотехнологии">Записаться</button></div>
+            </div></div></section>
+            <section id="formSec" class="section"><div class="container"><div class="register-box"><h3><i class="fab fa-whatsapp" style="color:#25D366;"></i> Оставить заявку</h3><form id="appForm"><input type="text" id="name" placeholder="Ваше имя" required><input type="email" id="email" placeholder="Email" required><input type="tel" id="phone" placeholder="Телефон" required><select id="course"><option>Основы психологии</option><option>Практическое консультирование</option><option>Детская психология</option><option>Коучинг и психотехнологии</option></select><input type="text" id="comment" placeholder="Комментарий"><button type="submit" class="btn-primary" style="width:100%">Отправить</button><div id="formMsg"></div></form></div></div></section>
+        `;
+        
+        document.getElementById('goCourses').onclick = () => { document.getElementById('coursesSec').scrollIntoView({ behavior: 'smooth' }); };
+        document.getElementById('contactWhatsApp').onclick = () => { window.open(`https://wa.me/${YOUR_PHONE}?text=Здравствуйте!`, '_blank'); };
+        document.querySelectorAll('.apply-course').forEach(btn => {
+            btn.onclick = () => { document.getElementById('course').value = btn.getAttribute('data-course'); document.getElementById('formSec').scrollIntoView({ behavior: 'smooth' }); };
+        });
+        document.getElementById('appForm').onsubmit = (e) => {
+            e.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let phone = document.getElementById('phone').value;
+            let course = document.getElementById('course').value;
+            let comment = document.getElementById('comment').value;
+            if(!name || !email || !phone) { document.getElementById('formMsg').innerHTML = '<div class="alert alert-error">Заполните все поля</div>'; return; }
+            saveApp(name, email, phone, course, comment);
+            document.getElementById('formMsg').innerHTML = '<div class="alert alert-success">✅ Заявка отправлена! Откроется WhatsApp.</div>';
+            document.getElementById('appForm').reset();
+        };
+    }
+    
+    function renderDashboard() {
+        if(!currentUser) { renderLogin(); return; }
+        document.getElementById('app-root').innerHTML = `
+            <div class="container" style="padding:40px 0"><div class="dashboard-box"><h2>👋 Личный кабинет: ${currentUser.name}</h2><p style="margin:10px 0 30px">Доступные видео-уроки</p><div class="video-item"><h3>🎥 Урок 1: Введение в психологию</h3><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><div class="video-item"><h3>🎧 Урок 2: Техники активного слушания</h3><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><div class="video-item"><h3>🧘 Урок 3: Работа с тревожностью</h3><iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe></div><button class="btn-outline" id="logoutBtn">Выйти</button></div></div>
+        `;
+        document.getElementById('logoutBtn').onclick = () => logout();
+    }
+    
+    function renderAdmin() {
+        if(!currentUser || !currentUser.isAdmin) {
+            document.getElementById('app-root').innerHTML = `
+                <div class="container" style="padding:60px 0"><div class="register-box"><h3>🚫 Доступ запрещён</h3><p>Вы не авторизованы как администратор.</p><button class="btn-primary" id="backHome">На главную</button></div></div>
+            `;
+            document.getElementById('backHome').onclick = () => navigate('home');
+            return;
+        }
+        function refresh() {
+            let apps = JSON.parse(localStorage.getItem('psycho_apps') || '[]');
+            let html = '<table class="admin-table"><thead><tr><th>Имя</th><th>Email</th><th>Телефон</th><th>Курс</th><th>Статус</th><th>Дата</th></tr></thead><tbody>';
+            if(apps.length === 0) {
+                html += '<tr><td colspan="6" style="text-align:center">📭 Пока нет заявок</td></tr>';
+            } else {
+                apps.forEach(app => {
+                    html += `<tr>
+                        <td>${app.name}</td>
+                        <td>${app.email}</td>
+                        <td>${app.phone}</td>
+                        <td>${app.course}</td>
+                        <td><select class="status" data-id="${app.id}"><option ${app.status==='new'?'selected':''}>🟡 Новая</option><option ${app.status==='inwork'?'selected':''}>🔵 В работе</option><option ${app.status==='closed'?'selected':''}>🟢 Закрыта</option></select></td>
+                        <td>${new Date(app.createdAt).toLocaleDateString()}</td>
+                    </tr>`;
+                });
+            }
+            html += '</tbody></table>';
+            document.getElementById('adminTable').innerHTML = html;
+            document.querySelectorAll('.status').forEach(sel => {
+                sel.onchange = () => { updateStatus(parseInt(sel.dataset.id), sel.value); refresh(); };
+            });
+            document.getElementById('appsCount').innerText = apps.length;
+        }
+        document.getElementById('app-root').innerHTML = `
+            <div class="container" style="padding:40px 0"><div class="admin-panel"><h2>🔐 Админ-панель</h2><p>Добро пожаловать, ${currentUser.name}!</p><p>Всего заявок: <span id="appsCount">0</span></p><div id="adminTable"></div><div style="display:flex;gap:15px;margin-top:20px"><button class="btn-secondary" id="refreshBtn">🔄 Обновить</button> <button class="btn-outline" id="adminLogout">🚪 Выйти</button></div></div></div>
+        `;
+        refresh();
+        document.getElementById('refreshBtn').onclick = () => refresh();
+        document.getElementById('adminLogout').onclick = () => logout();
+    }
+    
+    function renderLogin() {
+        document.getElementById('app-root').innerHTML = `
+            <div class="container" style="padding:60px 0"><div class="login-box">
+                <h2>🔑 Вход в систему</h2>
+                <form id="loginForm">
+                    <input type="text" id="loginEmail" placeholder="Логин" required>
+                    <input type="password" id="loginPassword" placeholder="Пароль" required>
+                    <button type="submit" class="btn-primary" style="width:100%">Войти</button>
+                    <div id="loginMsg"></div>
+                </form>
+                <hr>
+                <p style="text-align:center;color:#888;margin-top:15px;">Нет аккаунта? Зарегистрируйтесь</p>
+            </div></div>
+        `;
+        document.getElementById('loginForm').onsubmit = (e) => {
+            e.preventDefault();
+            let login = document.getElementById('loginEmail').value;
+            let pwd = document.getElementById('loginPassword').value;
+            if(loginUser(login, pwd)) { 
+                if(currentUser?.isAdmin) renderAdmin(); 
+                else renderDashboard(); 
+            } else { 
+                document.getElementById('loginMsg').innerHTML = '<div class="alert alert-error">❌ Неверный логин или пароль</div>'; 
+            }
+        };
+    }
+    
+    function renderCourses() {
+        document.getElementById('app-root').innerHTML = `
+            <section class="section"><div class="container"><h2 class="section-title">Все курсы</h2><div class="courses-grid">
+            <div class="course-card"><i class="fas fa-brain course-icon"></i><h3>Основы психологии</h3><button class="btn-primary course-btn" data-course="Основы психологии">Записаться</button></div>
+            <div class="course-card"><i class="fas fa-hand-holding-heart course-icon"></i><h3>Практическое консультирование</h3><button class="btn-primary course-btn" data-course="Практическое консультирование">Записаться</button></div>
+            <div class="course-card"><i class="fas fa-child course-icon"></i><h3>Детская психология</h3><button class="btn-primary course-btn" data-course="Детская психология">Записаться</button></div>
+            </div><div id="courseForm"></div></div></section>
+        `;
+        document.querySelectorAll('.course-btn').forEach(btn => {
+            btn.onclick = () => {
+                let course = btn.getAttribute('data-course');
+                document.getElementById('courseForm').innerHTML = `
+                    <div class="register-box" style="margin-top:40px"><h3>📝 Заявка на курс: ${course}</h3><form id="directForm"><input id="dirName" placeholder="Имя *" required><input id="dirEmail" placeholder="Email *" required><input id="dirPhone" placeholder="Телефон *" required><input id="dirComment" placeholder="Комментарий"><button type="submit" class="btn-primary" style="width:100%">Отправить</button><div id="dirMsg"></div></form></div>
+                `;
+                document.getElementById('directForm').onsubmit = (e) => {
+                    e.preventDefault();
+                    let n = document.getElementById('dirName').value, em = document.getElementById('dirEmail').value, ph = document.getElementById('dirPhone').value, cm = document.getElementById('dirComment').value;
+                    if(n && em && ph) { saveApp(n, em, ph, course, cm); document.getElementById('dirMsg').innerHTML = '<div class="alert alert-success">✅ Отправлено!</div>'; document.getElementById('directForm').reset(); }
+                    else { document.getElementById('dirMsg').innerHTML = '<div class="alert alert-error">Заполните все поля</div>'; }
+                };
+                document.getElementById('courseForm').scrollIntoView({ behavior: 'smooth' });
+            };
+        });
+    }
+    
+    // ЗАПУСК
+    renderHome();
+</script>
+</body>
+</html>
